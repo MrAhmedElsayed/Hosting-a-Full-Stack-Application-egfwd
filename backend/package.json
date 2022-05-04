@@ -13,7 +13,8 @@
     "test": "set ENV=test&&tsc&&db-migrate up --env test&&tsc&&jasmine&&db-migrate db:drop test",
     "format": "prettier --config .prettierrc \"src/**/*.{js,html,ts}\" --write",
     "lint": "yarn format && eslint --ext \"src/**/*.{js,ts}\"",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "deploy":  "chmod +x ./bin/deploy.sh && ./bin/deploy.sh"
   },
   "dependencies": {
     "bcrypt": "5.0.1",

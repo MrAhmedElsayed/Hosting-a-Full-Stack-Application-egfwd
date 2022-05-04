@@ -105,3 +105,6 @@ dist
 
 #pycharm
 .idea/
+
+# front-store backend .env file
+./backend/.env
