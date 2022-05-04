@@ -14,7 +14,7 @@
               class="me-3"
             ></v-img>
 
-            <h2 class="text-2xl font-weight-semibold">Materio</h2>
+            <h2 class="text-2xl font-weight-semibold">Store Front</h2>
           </router-link>
         </v-card-title>
 
@@ -28,21 +28,29 @@
 
         <!-- login form -->
         <v-card-text>
-          <v-form>
+          <v-form @submit.prevent="registerUser">
             <v-text-field
               v-model="username"
               outlined
               label="Username"
-              placeholder="JohnDoe"
+              placeholder="ali123"
               hide-details
               class="mb-3"
             ></v-text-field>
 
             <v-text-field
-              v-model="email"
+              v-model="first_name"
               outlined
-              label="Email"
-              placeholder="john@example.com"
+              label="First Name"
+              placeholder="Ali"
+              hide-details
+              class="mb-3"
+            ></v-text-field>
+            <v-text-field
+              v-model="last_name"
+              outlined
+              label="Last Name"
+              placeholder="Mohammed"
               hide-details
               class="mb-3"
             ></v-text-field>
@@ -58,6 +66,24 @@
               "
               hide-details
               @click:append="isPasswordVisible = !isPasswordVisible"
+              class="mb-3"
+            ></v-text-field>
+
+            <v-text-field
+              v-model="password_confirmation"
+              outlined
+              :type="isConfirmPasswordVisible ? 'text' : 'password'"
+              label="Confirm Password"
+              placeholder="············"
+              :append-icon="
+                isConfirmPasswordVisible
+                  ? icons.mdiEyeOffOutline
+                  : icons.mdiEyeOutline
+              "
+              hide-details
+              @click:append="
+                isConfirmPasswordVisible = !isConfirmPasswordVisible
+              "
             ></v-text-field>
 
             <v-checkbox hide-details class="mt-1">
@@ -69,7 +95,15 @@
               </template>
             </v-checkbox>
 
-            <v-btn block color="primary" class="mt-6"> Sign Up </v-btn>
+            <v-btn
+              block
+              color="primary"
+              class="mt-6"
+              :loading="register_loading"
+              type="submit"
+            >
+              Sign Up
+            </v-btn>
           </v-form>
         </v-card-text>
 
@@ -127,6 +161,15 @@
       height="289"
       src="@/assets/images/misc/tree-3.png"
     ></v-img>
+
+    <v-snackbar v-model="snackbar" color="error" multi-line>
+      {{ snackbarText }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+          <v-icon dark>{{ icons.mdiClose }}</v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -139,11 +182,24 @@ import {
   mdiGoogle,
   mdiEyeOutline,
   mdiEyeOffOutline,
+  mdiClose,
 } from "@mdi/js";
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:3000";
 
 export default {
   data() {
     return {
+      username: "",
+      first_name: "",
+      last_name: "",
+      password: "",
+      password_confirmation: "",
+      isConfirmPasswordVisible: false,
+      isPasswordVisible: false,
+      snackbar: false,
+      snackbarText: ``,
+      register_loading: false,
       icons: {
         mdiFacebook,
         mdiTwitter,
@@ -151,8 +207,9 @@ export default {
         mdiGoogle,
         mdiEyeOutline,
         mdiEyeOffOutline,
+        mdiClose,
       },
-      isPasswordVisible: false,
+
       socialLink: [
         {
           icon: mdiFacebook,
@@ -176,6 +233,42 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    registerUser(e) {
+      e.preventDefault();
+      this.register_loading = true;
+      if (
+        this.username === "" ||
+        this.first_name === "" ||
+        this.last_name === "" ||
+        this.password === "" ||
+        this.password_confirmation === ""
+      ) {
+        this.snackbarText = "Please fill all the fields";
+        this.snackbar = true;
+      } else {
+        if (this.password === this.password_confirmation) {
+          axios
+            .post("/users", {
+              username: this.username,
+              first_name: this.first_name,
+              last_name: this.last_name,
+              password: this.password,
+            })
+            .then((response) => {
+              console.log(response.data);
+              this.register_loading = false;
+              //store the token in local storage
+              this.$router.push("/pages/login");
+            });
+        } else {
+          this.snackbarText = `Password and Confirm Password do not match`;
+          this.snackbar = true;
+        }
+      }
+      this.register_loading = false;
+    },
   },
 };
 </script>

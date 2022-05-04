@@ -14,14 +14,14 @@
               class="me-3"
             ></v-img>
 
-            <h2 class="text-2xl font-weight-semibold">Materio</h2>
+            <h2 class="text-2xl font-weight-semibold">Store Front</h2>
           </router-link>
         </v-card-title>
 
         <!-- title -->
         <v-card-text>
           <p class="text-2xl font-weight-semibold text--primary mb-2">
-            Welcome to Materio! 👋🏻
+            Welcome to Store Front! 👋🏻
           </p>
           <p class="mb-2">
             Please sign-in to your account and start the adventure
@@ -129,12 +129,11 @@
       src="@/assets/images/misc/tree-3.png"
     ></v-img>
 
-    <v-snackbar v-model="snackbar" color="error" multi-line outlined>
+    <v-snackbar v-model="snackbar" color="error" multi-line>
       {{ snackbarText }}
-
       <template v-slot:action="{ attrs }">
         <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
-          Close
+          <v-icon dark>{{ icons.mdiClose }}</v-icon>
         </v-btn>
       </template>
     </v-snackbar>
@@ -150,6 +149,7 @@ import {
   mdiGoogle,
   mdiEyeOutline,
   mdiEyeOffOutline,
+  mdiClose,
 } from "@mdi/js";
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:3000";
@@ -186,6 +186,7 @@ export default {
       icons: {
         mdiEyeOutline,
         mdiEyeOffOutline,
+        mdiClose,
       },
       snackbar: false,
       snackbarText: ``,
