@@ -61,7 +61,13 @@
               <a href="javascript:void(0)" class="mt-1"> Forgot Password? </a>
             </div>
 
-            <v-btn block color="primary" class="mt-6" type="submit">
+            <v-btn
+              block
+              color="primary"
+              class="mt-6"
+              type="submit"
+              :loading="login_loading"
+            >
               Login
             </v-btn>
           </v-form>
@@ -104,6 +110,7 @@
           $vuetify.theme.dark ? 'dark' : 'light'
         }.png`)
       "
+      alt="theme-change"
     />
 
     <!-- tree -->
@@ -121,6 +128,16 @@
       height="289"
       src="@/assets/images/misc/tree-3.png"
     ></v-img>
+
+    <v-snackbar v-model="snackbar" color="error" multi-line outlined>
+      {{ snackbarText }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
@@ -170,6 +187,9 @@ export default {
         mdiEyeOutline,
         mdiEyeOffOutline,
       },
+      snackbar: false,
+      snackbarText: ``,
+      login_loading: false,
     };
   },
   computed: {
@@ -179,21 +199,35 @@ export default {
     ...mapMutations(["setUser", "setToken"]),
     async login(e) {
       e.preventDefault();
-      await axios
-        .post("/users/login", {
-          username: this.username,
-          password: this.password,
-        })
-        .then((res) => {
-          const user = res.data["user"];
-          const token = res.data["token"];
-          this.setUser(user);
-          this.setToken(token);
-          this.$router.push("/");
-        })
-        .catch((err) => {
-          return err.response.data;
-        });
+      if (this.username && this.password) {
+        this.login_loading = true;
+        await axios
+          .post("/users/login", {
+            username: this.username,
+            password: this.password,
+          })
+          .then((res) => {
+            const user = res.data["user"];
+            const token = res.data["token"];
+            this.setUser(user);
+            this.setToken(token);
+            // store user and token in local storage
+            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("token", token);
+            this.login_loading = false;
+            this.$router.push("/");
+          })
+          .catch((err) => {
+            this.snackbar = true;
+            this.snackbarText = err.response.data.message;
+            console.log(err);
+            this.login_loading = false;
+          });
+      } else {
+        this.snackbar = true;
+        this.snackbarText = "Please fill in all the fields";
+        this.login_loading = false;
+      }
     },
   },
 };

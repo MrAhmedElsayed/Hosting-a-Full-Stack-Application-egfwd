@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "frontend:install": "cd frontend && yarn",
+        "backend:install": "cd backend && yarn"
+    }
+}

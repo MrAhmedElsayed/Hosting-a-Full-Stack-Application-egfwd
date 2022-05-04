@@ -144,6 +144,7 @@ export default {
 
   methods: {
     //todo use localstorage to store the token
+    //vue store rest after browser refresh
     listOrders() {
       console.log(">>> ", this.$store.state.user);
       // set token header

@@ -21,7 +21,6 @@ export class dashboardQuery {
         ...productCountResult.rows,
         ...userCountResult.rows,
       ]
-      console.log(allResults)
       return allResults
     } catch (error) {
       throw new Error(`could not get dashboard query: ${error}`)

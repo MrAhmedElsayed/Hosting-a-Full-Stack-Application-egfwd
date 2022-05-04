@@ -34,6 +34,8 @@ const authenticate = async (req: Request, res: Response) => {
         user: {
           id: userAuth.id,
           username: userAuth.username,
+          first_name: userAuth.first_name,
+          last_name: userAuth.last_name,
         },
       })
     } else {
