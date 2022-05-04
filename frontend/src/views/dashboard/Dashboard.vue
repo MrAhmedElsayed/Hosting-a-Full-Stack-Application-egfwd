@@ -6,7 +6,7 @@
           <span class="font-weight-semibold">Summary</span>
           <v-spacer></v-spacer>
           <v-btn icon small class="me-n3 mt-n2">
-            <v-icon @click="intialData">
+            <v-icon @click="initialData">
               {{ icons.mdiReload }}
             </v-icon>
           </v-btn>
@@ -18,72 +18,69 @@
           >
           <span>😎 this month</span>
         </v-card-subtitle>
-
-        <v-card-text>
-          <v-row>
-            <v-col
-              v-for="data in statisticsData"
-              :key="data.title"
-              cols="6"
-              md="4"
-              class="d-flex align-center"
-            >
-              <v-avatar
-                size="44"
-                :color="resolveStatisticsIconVariation(data.title).color"
-                rounded
-                class="elevation-1"
-              >
-                <v-icon dark color="white" size="30">
-                  {{ resolveStatisticsIconVariation(data.title).icon }}
-                </v-icon>
-              </v-avatar>
-              <div class="ms-3">
-                <p class="text-xs mb-0">
-                  {{ data.title }}
-                </p>
-                <h3 class="text-xl font-weight-semibold">
-                  {{ data.total }}
-                </h3>
-              </div>
-            </v-col>
-          </v-row>
-        </v-card-text>
       </v-card>
+    </v-col>
+
+    <v-col cols="12">
+      <v-row class="match-height">
+        <v-col cols="12" sm="4">
+          <statistics-card-vertical
+            :color="users.color"
+            :icon="users.icon"
+            :statistics="users.statistics"
+            :stat-title="users.statTitle"
+            :link="users.link"
+          ></statistics-card-vertical>
+        </v-col>
+        <v-col cols="12" sm="4">
+          <statistics-card-vertical
+            :color="products.color"
+            :icon="products.icon"
+            :statistics="products.statistics"
+            :stat-title="products.statTitle"
+            :link="products.link"
+          ></statistics-card-vertical>
+        </v-col>
+        <v-col cols="12" sm="4">
+          <statistics-card-vertical
+            :color="orders.color"
+            :icon="orders.icon"
+            :statistics="orders.statistics"
+            :stat-title="orders.statTitle"
+            :link="orders.link"
+          ></statistics-card-vertical>
+          <v-overlay :value="overlay">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+          </v-overlay>
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import StatisticsCardVertical from "@/components/statistics-card/StatisticsCardVertical.vue";
+
 import axios from "axios";
+axios.defaults.baseURL = "http://localhost:3000";
 import {
   mdiClipboardListOutline,
   mdiAccountOutline,
   mdiLabelOutline,
   mdiReload,
+  mdiAccountGroupOutline,
+  mdiFormatListChecks,
+  mdiCameraGopro,
 } from "@mdi/js";
 
 export default {
+  components: {
+    StatisticsCardVertical,
+  },
   // isolate data orders, products and users
   data() {
     return {
-      orders_count: 0,
-      products_count: 0,
-      users_count: 0,
-      statisticsData: [
-        {
-          title: "Orders",
-          total: "0",
-        },
-        {
-          title: "Users",
-          total: "0",
-        },
-        {
-          title: "Product",
-          total: "0",
-        },
-      ],
+      overlay: false,
       // icons
       icons: {
         mdiClipboardListOutline,
@@ -91,30 +88,48 @@ export default {
         mdiLabelOutline,
         mdiReload,
       },
+
+      users: {
+        statTitle: "Users",
+        icon: mdiAccountGroupOutline,
+        color: "success",
+        statistics: "0",
+        link: "/users",
+      },
+      products: {
+        statTitle: "Products",
+        icon: mdiCameraGopro,
+        color: "warning",
+        statistics: "0",
+        link: "/products",
+      },
+      // vertical card options
+      orders: {
+        statTitle: "Orders",
+        icon: mdiFormatListChecks,
+        color: "primary",
+        statistics: "0",
+        link: "/orders",
+      },
     };
   },
   created() {
-    this.intialData();
+    this.initialData();
   },
   methods: {
-    resolveStatisticsIconVariation(data) {
-      if (data === "Orders")
-        return { icon: mdiClipboardListOutline, color: "primary" };
-      if (data === "Users")
-        return { icon: mdiAccountOutline, color: "success" };
-      if (data === "Product")
-        return { icon: mdiLabelOutline, color: "warning" };
-    },
-    intialData() {
+    initialData() {
+      this.overlay = true;
       axios
-        .get("/api/dashboard/statistics")
+        .get("/home")
         .then((response) => {
-          this.orders_count = response.data.orders_count;
-          this.products_count = response.data.products_count;
-          this.users_count = response.data.users_count;
+          this.orders.statistics = response.data[0]["order_count"];
+          this.products.statistics = response.data[1]["product_count"];
+          this.users.statistics = response.data[2]["user_count"];
+          this.overlay = false;
         })
         .catch((error) => {
           console.log(error);
+          this.overlay = false;
         });
     },
   },

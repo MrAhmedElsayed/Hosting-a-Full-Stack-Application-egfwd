@@ -12,9 +12,11 @@ const store = new UserStore()
 
 const userRoutes = (app: express.Application) => {
   app.post('/users/login', authenticate)
-  app.get('/users', verifyAuthToken, index)
+  // app.get('/users', verifyAuthToken, index)
+  app.get('/users', index)
   app.get('/users/:userId/', verifyAuthToken, show)
-  app.post('/users', verifyAuthToken, create)
+  // app.post('/users', verifyAuthToken, create)
+  app.post('/users', create)
 }
 
 const authenticate = async (req: Request, res: Response) => {
@@ -27,7 +29,13 @@ const authenticate = async (req: Request, res: Response) => {
     const userAuth = await store.authenticate(user.username, user.password)
     if (userAuth) {
       const token = await generateToken(userAuth)
-      res.json(token)
+      res.json({
+        token,
+        user: {
+          id: userAuth.id,
+          username: userAuth.username,
+        },
+      })
     } else {
       res.status(401).json({ message: 'Invalid credentials' })
     }

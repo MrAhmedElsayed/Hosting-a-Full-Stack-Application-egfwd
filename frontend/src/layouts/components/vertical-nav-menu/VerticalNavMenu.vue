@@ -13,8 +13,8 @@
       <router-link to="/" class="d-flex align-center text-decoration-none">
         <v-img
           :src="require('@/assets/images/logos/logo.svg')"
-          max-height="30px"
-          max-width="30px"
+          max-height="32px"
+          max-width="32px"
           alt="logo"
           contain
           eager
@@ -33,53 +33,21 @@
         :to="{ name: 'dashboard' }"
         :icon="icons.mdiHomeOutline"
       ></nav-menu-link>
+      <nav-menu-section-title title="MANAGEMENT"></nav-menu-section-title>
       <nav-menu-link
-        title="Account Settings"
-        :to="{ name: 'pages-account-settings' }"
-        :icon="icons.mdiAccountCogOutline"
-      ></nav-menu-link>
-      <nav-menu-group title="Pages" :icon="icons.mdiFileOutline">
-        <nav-menu-link
-          title="Login"
-          :to="{ name: 'pages-login' }"
-          target="_blank"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Register"
-          :to="{ name: 'pages-register' }"
-          target="_blank"
-        ></nav-menu-link>
-        <nav-menu-link
-          title="Error"
-          :to="{ name: 'error-404' }"
-          target="_blank"
-        ></nav-menu-link>
-      </nav-menu-group>
-      <nav-menu-section-title title="CONTROLS"></nav-menu-section-title>
-      <nav-menu-link
-        title="Typography"
-        :to="{ name: 'typography' }"
+        title="Orders"
+        :to="{ name: 'orders' }"
         :icon="icons.mdiAlphaTBoxOutline"
       ></nav-menu-link>
       <nav-menu-link
-        title="Icons"
-        :to="{ name: 'icons' }"
+        title="Users"
+        :to="{ name: 'users' }"
         :icon="icons.mdiEyeOutline"
       ></nav-menu-link>
       <nav-menu-link
-        title="Cards"
-        :to="{ name: 'cards' }"
+        title="Products"
+        :to="{ name: 'products' }"
         :icon="icons.mdiCreditCardOutline"
-      ></nav-menu-link>
-      <nav-menu-link
-        title="Tables"
-        :to="{ name: 'simple-table' }"
-        :icon="icons.mdiTable"
-      ></nav-menu-link>
-      <nav-menu-link
-        title="Form Layouts"
-        :to="{ name: 'form-layouts' }"
-        :icon="icons.mdiFormSelect"
       ></nav-menu-link>
     </v-list>
   </v-navigation-drawer>
@@ -98,13 +66,11 @@ import {
   mdiAccountCogOutline,
 } from "@mdi/js";
 import NavMenuSectionTitle from "./components/NavMenuSectionTitle.vue";
-import NavMenuGroup from "./components/NavMenuGroup.vue";
 import NavMenuLink from "./components/NavMenuLink.vue";
 
 export default {
   components: {
     NavMenuSectionTitle,
-    NavMenuGroup,
     NavMenuLink,
   },
   props: {

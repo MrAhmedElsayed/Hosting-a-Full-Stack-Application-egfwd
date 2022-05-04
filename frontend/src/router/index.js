@@ -14,6 +14,21 @@ const routes = [
     component: () => import("@/views/dashboard/Dashboard.vue"),
   },
   {
+    path: "/orders",
+    name: "orders",
+    component: () => import("@/views/OrdersDetail"),
+  },
+  {
+    path: "/users",
+    name: "users",
+    component: () => import("@/views/UserDetail"),
+  },
+  {
+    path: "/products",
+    name: "products",
+    component: () => import("@/views/ProductsDetail"),
+  },
+  {
     path: "/icons",
     name: "icons",
     component: () => import("@/views/icons/Icons.vue"),

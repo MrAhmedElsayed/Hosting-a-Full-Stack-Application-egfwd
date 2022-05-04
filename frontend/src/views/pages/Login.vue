@@ -30,12 +30,12 @@
 
         <!-- login form -->
         <v-card-text>
-          <v-form>
+          <v-form @submit.prevent="login">
             <v-text-field
-              v-model="email"
+              v-model="username"
               outlined
-              label="Email"
-              placeholder="john@example.com"
+              label="Username"
+              placeholder="ahmed123"
               hide-details
               class="mb-3"
             ></v-text-field>
@@ -61,7 +61,9 @@
               <a href="javascript:void(0)" class="mt-1"> Forgot Password? </a>
             </div>
 
-            <v-btn block color="primary" class="mt-6"> Login </v-btn>
+            <v-btn block color="primary" class="mt-6" type="submit">
+              Login
+            </v-btn>
           </v-form>
         </v-card-text>
 
@@ -132,11 +134,14 @@ import {
   mdiEyeOutline,
   mdiEyeOffOutline,
 } from "@mdi/js";
-
+import axios from "axios";
+axios.defaults.baseURL = "http://localhost:3000";
+import { mapMutations } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      email: "",
+      username: "",
       password: "",
       isPasswordVisible: false,
       socialLink: [
@@ -166,6 +171,30 @@ export default {
         mdiEyeOffOutline,
       },
     };
+  },
+  computed: {
+    ...mapGetters(["isLoggedIn"]),
+  },
+  methods: {
+    ...mapMutations(["setUser", "setToken"]),
+    async login(e) {
+      e.preventDefault();
+      await axios
+        .post("/users/login", {
+          username: this.username,
+          password: this.password,
+        })
+        .then((res) => {
+          const user = res.data["user"];
+          const token = res.data["token"];
+          this.setUser(user);
+          this.setToken(token);
+          this.$router.push("/");
+        })
+        .catch((err) => {
+          return err.response.data;
+        });
+    },
   },
 };
 </script>

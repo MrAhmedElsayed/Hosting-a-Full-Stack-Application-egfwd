@@ -8,9 +8,9 @@
       </v-avatar>
       <v-spacer></v-spacer>
 
-      <v-btn small icon class="me-n3 mt-n1">
+      <v-btn small icon class="me-n3 mt-n1" :to="link">
         <v-icon>
-          {{ mdiDotsVertical }}
+          {{ mdiChevronDoubleRight }}
         </v-icon>
       </v-btn>
     </v-card-title>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mdiDotsVertical } from "@mdi/js";
+import { mdiChevronDoubleRight } from "@mdi/js";
 
 export default {
   props: {
@@ -49,10 +49,11 @@ export default {
     subtitle: { type: String, default: "" },
     statistics: { type: String, default: "" },
     change: { type: String, default: "" },
+    link: { type: String, default: "" },
   },
   data() {
     return {
-      mdiDotsVertical,
+      mdiChevronDoubleRight,
     };
   },
   methods: {

@@ -10,9 +10,11 @@ Current Order by user (args: user id)[token required]
 const store = new OrderModel()
 
 const orderRoutes = (app: express.Application) => {
-  app.get('/orders', index)
+  // app.get('/orders', index)
+  app.get('/orders', verifyAuthToken, index)
   app.get('/user/:userId/orders', verifyAuthToken, show)
-  app.post('/user/:userId/create-order', verifyAuthToken, create)
+  // app.post('/user/:userId/create-order', verifyAuthToken, create)
+  app.post('/user/:userId/create-order', create)
   // add products to order
   app.post('/orders/:orderId/products', verifyAuthToken, addProduct)
 }

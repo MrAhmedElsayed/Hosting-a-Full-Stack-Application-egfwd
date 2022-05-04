@@ -20,7 +20,7 @@ export default {
   },
   watch: {
     $route(to) {
-      console.log(to.meta.layout);
+      // console.log(to.meta.layout);
       // if (to.meta.layout === null) return null;
       if (to.meta.layout === "blank") return (this.layout = "layout-blank");
       return (this.layout = "layout-content");

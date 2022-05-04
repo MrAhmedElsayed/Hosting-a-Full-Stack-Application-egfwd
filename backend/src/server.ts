@@ -3,14 +3,15 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import userRoutes from './handlers/user'
 import productRoutes from './handlers/product'
-import morgan from 'morgan'
 import orderRoutes from './handlers/order'
+import homeRoute from './handlers/homePage'
+import morgan from 'morgan'
 
 const app: express.Application = express()
 const address = '0.0.0.0:3000'
 
 const corsOptions = {
-  origin: 'http://127.0.0.1:3000',
+  origin: 'http://127.0.0.1:8080',
   optionsSuccessStatus: 200,
 }
 
@@ -26,6 +27,7 @@ app.get('/', function (req: Request, res: Response) {
 orderRoutes(app)
 productRoutes(app)
 userRoutes(app)
+homeRoute(app)
 
 app.listen(3000, function () {
   console.log(`starting app on: ${address}`)
