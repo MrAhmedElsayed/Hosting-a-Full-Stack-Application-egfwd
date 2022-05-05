@@ -9,6 +9,9 @@ export default new Vuex.Store({
     token: null,
   },
   mutations: {
+    user(state, user) {
+      state.user = user;
+    },
     setUser(state, user) {
       state.user = user;
     },
@@ -16,9 +19,16 @@ export default new Vuex.Store({
       state.token = token;
     },
   },
-  actions: {},
+  actions: {
+    user(context, user) {
+      context.commit("user", user);
+    },
+  },
   modules: {},
   getters: {
+    user(state) {
+      return state.user;
+    },
     isLoggedIn(state) {
       return !!state.token;
     },

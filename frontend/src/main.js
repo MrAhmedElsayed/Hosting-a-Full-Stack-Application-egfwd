@@ -6,6 +6,7 @@ import vuetify from "./plugins/vuetify";
 import "@/styles/styles.scss";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import "./plugins/axios/axiosConfig";
 
 Vue.use(VueAxios, axios);
 

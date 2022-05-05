@@ -41,7 +41,7 @@
           style="vertical-align: middle"
         >
           <span class="text--primary font-weight-semibold mb-n1">
-            John Doe
+            {{ username }}
           </span>
           <small class="text--disabled text-capitalize">Admin</small>
         </div>
@@ -155,10 +155,12 @@ import {
   mdiHelpCircleOutline,
   mdiLogoutVariant,
 } from "@mdi/js";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
+      username: "",
       icons: {
         mdiAccountOutline,
         mdiEmailOutline,
@@ -170,6 +172,12 @@ export default {
         mdiLogoutVariant,
       },
     };
+  },
+  computed: {
+    ...mapGetters(["user"]),
+  },
+  created() {
+    this.username = this.$store.state.user.username;
   },
 };
 </script>

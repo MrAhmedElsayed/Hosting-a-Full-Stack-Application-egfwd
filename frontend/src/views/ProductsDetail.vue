@@ -19,7 +19,7 @@
               <v-toolbar-title>My Product Control</v-toolbar-title>
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
-              <v-dialog v-model="dialog" max-width="500px">
+              <v-dialog v-model="dialog" max-width="550px" persistent>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
                     color="primary"
@@ -50,7 +50,8 @@
                           <v-text-field
                             v-model="editedItem.price"
                             label="Price"
-                            placeholder="example: 144.00"
+                            placeholder="example: 144"
+                            type="number"
                           ></v-text-field>
                         </v-col>
                       </v-row>
@@ -104,7 +105,6 @@
 
 <script>
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:3000";
 export default {
   name: "ProductsDetail",
   data: () => ({
@@ -196,12 +196,15 @@ export default {
       if (this.editedIndex > -1) {
         Object.assign(this.products[this.editedIndex], this.editedItem);
       } else {
-        this.products.push(this.editedItem);
-        //todo: get current user id
-        axios.post("/products", this.editedItem).then((response) => {
-          console.log(response.data);
-          this.listProducts();
-        });
+        axios
+          .post("/products", this.editedItem)
+          .then((response) => {
+            console.log(response.data);
+            this.listProducts();
+          })
+          .catch((error) => {
+            alert(error);
+          });
       }
       this.close();
     },

@@ -235,7 +235,7 @@ export default {
     };
   },
   methods: {
-    registerUser(e) {
+    async registerUser(e) {
       e.preventDefault();
       this.register_loading = true;
       if (
@@ -249,7 +249,7 @@ export default {
         this.snackbar = true;
       } else {
         if (this.password === this.password_confirmation) {
-          axios
+          await axios
             .post("/users", {
               username: this.username,
               first_name: this.first_name,

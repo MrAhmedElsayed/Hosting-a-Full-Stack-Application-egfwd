@@ -13,10 +13,9 @@ Create [token required]
 const store = new ProductModel()
 
 const productRoutes = (app: express.Application) => {
-  app.get('/products', index)
-  app.get('/products/:productId', show)
-  // app.post('/products', verifyAuthToken, create)
-  app.post('/products', create)
+  app.get('/products', verifyAuthToken, index)
+  app.get('/products/:productId', verifyAuthToken, show)
+  app.post('/products', verifyAuthToken, create)
   // show how the product belongs to a single order.
   // If we were to add a user as an owner of the order
   app.get('/user/:userID/orders/:orderID/products', userOrderProducts)

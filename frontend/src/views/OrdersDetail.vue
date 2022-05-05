@@ -39,7 +39,7 @@
                   <v-card-text>
                     <v-container>
                       <v-row>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col cols="12" sm="6" md="12">
                           <v-text-field
                             v-model="editedItem.status"
                             label="Order Status"
@@ -146,11 +146,7 @@ export default {
     //todo use localstorage to store the token
     //vue store rest after browser refresh
     listOrders() {
-      console.log(">>> ", this.$store.state.user);
       // set token header
-      axios.defaults.headers.common["Authorization"] =
-        "Bearer " + this.$store.state.token;
-
       axios.get("/orders").then((response) => {
         this.orders = response.data;
       });
@@ -194,14 +190,10 @@ export default {
         Object.assign(this.orders[this.editedIndex], this.editedItem);
       } else {
         this.orders.push(this.editedItem);
-        //todo: get current user id
-        //get stored token
-
+        //get stored user id
+        const userLocal = JSON.parse(localStorage.getItem("user"));
         axios
-          .post(
-            `/user/${this.$store.state.user.id}/create-order`,
-            this.editedItem
-          )
+          .post(`/user/${userLocal.id}/create-order`, this.editedItem)
           .then((response) => {
             console.log(response.data);
             this.listOrders();

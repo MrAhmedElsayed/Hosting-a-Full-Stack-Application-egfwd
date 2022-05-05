@@ -12,6 +12,9 @@ const routes = [
     path: "/dashboard",
     name: "dashboard",
     component: () => import("@/views/dashboard/Dashboard.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/orders",
@@ -22,11 +25,17 @@ const routes = [
     path: "/users",
     name: "users",
     component: () => import("@/views/UserDetail"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/products",
     name: "products",
     component: () => import("@/views/ProductsDetail"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/icons",
@@ -58,6 +67,7 @@ const routes = [
     path: "/cards",
     name: "cards",
     component: () => import("@/views/cards/Card.vue"),
+    meta: { requiresAuth: false },
   },
   {
     path: "/pages/login",
@@ -93,6 +103,17 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+// check if user is logged in
+router.beforeEach((to, from, next) => {
+  let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  let user_have_token = localStorage.getItem("token");
+  if (requiresAuth && !user_have_token) {
+    next("/pages/login");
+  } else {
+    next();
+  }
 });
 
 export default router;

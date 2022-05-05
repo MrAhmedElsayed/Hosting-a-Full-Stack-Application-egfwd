@@ -12,8 +12,7 @@ const store = new UserStore()
 
 const userRoutes = (app: express.Application) => {
   app.post('/users/login', authenticate)
-  // app.get('/users', verifyAuthToken, index)
-  app.get('/users', index)
+  app.get('/users', verifyAuthToken, index)
   app.get('/users/:userId/', verifyAuthToken, show)
   // app.post('/users', verifyAuthToken, create)
   app.post('/users', create)

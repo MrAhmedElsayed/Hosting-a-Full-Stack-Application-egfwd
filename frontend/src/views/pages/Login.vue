@@ -216,6 +216,7 @@ export default {
             localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("token", token);
             this.login_loading = false;
+            this.$store.dispatch("user", user);
             this.$router.push("/");
           })
           .catch((err) => {
