@@ -53,7 +53,7 @@ describe('Product Model', () => {
     })
   })
 
-  // clear a table in PostgreSQL
+  // clear a table in PostgresSQL
   afterAll(async () => {
     const connection_pool = await Client.connect()
     await connection_pool.query('ALTER SEQUENCE products_id_seq RESTART WITH 1')

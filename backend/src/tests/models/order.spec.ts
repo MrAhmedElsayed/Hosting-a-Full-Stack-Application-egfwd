@@ -55,7 +55,7 @@ describe('Order Model', () => {
     expect(result[0].status).toEqual('open')
   })
 
-  // clear a table in PostgreSQL
+  // clear a table in PostgresSQL
   afterAll(async () => {
     const connection_pool = await Client.connect()
     await connection_pool.query('ALTER SEQUENCE orders_id_seq RESTART WITH 1')

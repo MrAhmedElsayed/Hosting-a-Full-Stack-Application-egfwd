@@ -3,6 +3,8 @@
         "frontend:install": "cd frontend && yarn",
         "backend:install": "cd backend && yarn",
         "frontend:build": "cd frontend && yarn build",
-        "backend:build": "cd backend && yarn build"
+        "backend:build": "cd backend && yarn build",
+        "frontend:test": "cd frontend && yarn test",
+        "backend:test": "cd backend && yarn test"
     }
 }
