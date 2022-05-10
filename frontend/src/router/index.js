@@ -107,7 +107,7 @@ const router = new VueRouter({
 
 // check if user is logged in
 router.beforeEach((to, from, next) => {
-  let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  let requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   let user_have_token = localStorage.getItem("token");
   if (requiresAuth && !user_have_token) {
     next("/pages/login");

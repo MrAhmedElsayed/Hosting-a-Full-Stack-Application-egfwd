@@ -104,7 +104,15 @@ dist
 .tern-port
 
 #pycharm
-.idea/
+.idea
 
 # front-store backend .env file
 ./backend/.env
+
+# AWS elasticbeanstalk configuration
+.elasticbeanstalk/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

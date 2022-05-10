@@ -1,10 +1,16 @@
 {
-    "scripts": {
-        "frontend:install": "cd frontend && yarn",
-        "backend:install": "cd backend && yarn",
-        "frontend:build": "cd frontend && yarn build",
-        "backend:build": "cd backend && yarn build",
-        "frontend:test": "cd frontend && yarn test",
-        "backend:test": "cd backend && yarn test"
-    }
+  "name": "my-app",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": "16.0.0"
+  },
+  "scripts": {
+    "frontend:install": "cd frontend && yarn",
+    "backend:install": "cd backend && yarn",
+    "frontend:build": "cd frontend && yarn build",
+    "backend:build": "cd backend && yarn build",
+    "frontend:test": "cd frontend && yarn test",
+    "backend:test": "cd backend && yarn test"
+  }
 }

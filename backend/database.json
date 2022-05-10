@@ -34,6 +34,24 @@
     "port": {
       "ENV": "POSTGRES_PORT"
     }
+  },
+  "prod": {
+    "driver": "pg",
+    "host": {
+      "ENV": "RDS_HOSTNAME"
+    },
+    "database": {
+      "ENV": "RDS_DB_NAME"
+    },
+    "user": {
+      "ENV": "RDS_USERNAME"
+    },
+    "password": {
+      "ENV": "RDS_PASSWORD"
+    },
+    "port": {
+      "ENV": "RDS_PORT"
+    }
   }
 }
 

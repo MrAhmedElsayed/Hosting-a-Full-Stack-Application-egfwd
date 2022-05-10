@@ -9,6 +9,10 @@ const {
   POSTGRES_USER,
   POSTGRES_PASSWORD,
   POSTGRES_TEST_DB,
+  RDS_HOSTNAME,
+  RDS_DB_NAME,
+  RDS_USERNAME,
+  RDS_PASSWORD,
   ENV,
 } = process.env
 
@@ -33,7 +37,17 @@ const poolTest = new Pool({
   idleTimeoutMillis: 30000,
 })
 
-const Client = ENV === 'test' ? poolTest : poolDev
-console.log(`Connected to ${ENV} database`)
+// Connecting to the database in case of Production (RDS)
+const poolProd = new Pool({
+  host: RDS_HOSTNAME,
+  database: RDS_DB_NAME,
+  user: RDS_USERNAME,
+  password: RDS_PASSWORD,
+  max: 20,
+  idleTimeoutMillis: 30000,
+})
+
 // Export the connection pool
+const Client = ENV === 'dev' ? poolDev : ENV === 'test' ? poolTest : poolProd
+console.log(`Connected to ${ENV} database`)
 export default Client
