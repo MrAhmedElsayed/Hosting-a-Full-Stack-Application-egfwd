@@ -14,7 +14,7 @@
     "format": "prettier --config .prettierrc \"src/**/*.{js,html,ts}\" --write",
     "lint": "yarn format && eslint --ext \"src/**/*.{js,ts}\"",
     "lint:fix": "yarn lint --fix",
-    "deploy": "chmod +x ./bin/deploy.sh && ./bin/deploy.sh"
+    "deploy": "chmod +x bin/deploy.sh && bin/deploy.sh"
   },
   "dependencies": {
     "@types/sequelize": "^4.28.12",
