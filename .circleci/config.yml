@@ -1,27 +1,58 @@
-version: 2.1
+version: '2.1'
 orbs:
-  node: circleci/node@4.1.0
-  aws-cli: circleci/aws-cli@1.3.1
+  node: circleci/node@5.0.2
+  aws-cli: circleci/aws-cli@3.1.1
 jobs:
-  build:
+  build-frontend-and-backend:
     docker:
-      - image: "cimg/base:stable"
+      - image: 'cimg/base:stable'
     steps:
-      - node/install
       - checkout
+      - node/install:
+          install-yarn: true
+          node-version: '16.13'
+      - run: node --version
+      - run: yarn --version
       - run:
-          name: Front-End Install
-          command: |
-            npm run frontend:install
+          name: 'Frontend install'
+          command: cd frontend && yarn install
       - run:
-          name: Back-End Install
-          command: |
-            npm run backend:install
+          name: 'Frontend Build'
+          command: cd frontend && yarn build
       - run:
-          name: Front-End Build
-          command: |
-            npm run frontend:build
+          name: 'Backend install'
+          command: cd backend && yarn install
       - run:
-          name: Back-End Build
-          command: |
-            npm run backend:build
+          name: 'Backend Build'
+          command: cd backend && yarn build
+
+  front-end-test:
+    executor:
+      name: node/default
+      tag: '16'
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          command: cd frontend && yarn test
+          name: Run front-end tests
+
+  back-end-test:
+    executor:
+      name: node/default
+      tag: '16'
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          command: cd backend && yarn test
+          name: Run back-end tests
+
+workflows:
+  test_my_app:
+    jobs:
+      - build-frontend-and-backend
+      - front-end-test
+      - back-end-test
