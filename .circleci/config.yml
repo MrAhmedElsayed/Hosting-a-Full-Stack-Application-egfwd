@@ -3,7 +3,7 @@ orbs:
   node: circleci/node@5.0.2
   aws-cli: circleci/aws-cli@3.1.1
 jobs:
-  build-frontend-and-backend:
+  build:
     docker:
       - image: 'cimg/base:stable'
         auth:
@@ -19,36 +19,26 @@ jobs:
       - run: node --version
       - run: yarn --version
       - run:
-          name: 'Frontend install'
+          name: 'Install Frontend'
           command: cd frontend && yarn install
       - run:
-          name: 'Frontend Build'
+          name: 'Build Frontend'
           command: cd frontend && yarn build
       - run:
-          name: 'Backend install'
+          name: 'Test Frontend'
+          command: cd frontend && yarn build
+
+      - run:
+          name: 'Install Backend'
           command: cd backend && yarn install
       - run:
-          name: 'Backend Build'
+          name: 'Build Backend'
+          command: cd backend && yarn build
+      - run:
+          name: 'Test Backend'
           command: cd backend && yarn build
 
-
-
-  run-tests:
-    executor:
-      name: node/default
-      tag: '16'
-    steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: yarn
-      - run:
-          command: cd frontend && yarn test
-          name: Run front-end tests
-      - run:
-          command: cd backend && yarn test
-          name: Run back-end tests
-
-  deploy-frontend-and-backend:
+  deploy:
     docker:
       - image: 'cimg/base:stable'
         auth:
@@ -69,6 +59,7 @@ jobs:
 workflows:
   storefront:
     jobs:
-      - build-frontend-and-backend
-      - run-tests
-      - deploy-frontend-and-backend
+      - build
+      - deploy:
+          requires:
+            - build
