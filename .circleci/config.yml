@@ -59,10 +59,10 @@ jobs:
           node-version: '16.13'
       - run:
           name: 'Deploy frontend'
-          command: cd frontend && yarn deploy
+          command: aws --version
       - run:
           name: 'Deploy backend'
-          command: cd backend && yarn deploy
+          command: aws --version
 
 workflows:
   storefront:
