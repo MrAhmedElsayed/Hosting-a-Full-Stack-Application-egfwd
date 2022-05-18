@@ -5,10 +5,6 @@ orbs:
   eb: circleci/aws-elastic-beanstalk@1.0.0
 jobs:
   build:
-    filters:
-      branches:
-        only:
-          - main
     docker:
       - image: 'cimg/base:stable'
         auth:
@@ -41,11 +37,10 @@ jobs:
 
      # setup Elastic Beanstalk
       - run:
-          name: 'Setup Elastic Beanstalk'
+          name: 'Setup Elastic Beanstalk environment variables'
           command: |
-            eb init --platform node.js --region us-east-1 --profile cli-user
-            eb create backend-env --platform node.js --region us-east-1 --profile cli-user
-            eb deploy --platform node.js --region us-east-1 --version-label '1.0.0' --profile cli-user
+            eb setenv AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY BCRYPT_PASSWORD=$BCRYPT_PASSWORD TOKEN_SECRET=$TOKEN_SECRET SALT_ROUNDS=$SALT_ROUNDS ENV=$ENV RDS_HOSTNAME=$RDS_HOSTNAME RDS_PORT=$RDS_PORT RDS_DB_NAME=$RDS_DB_NAME RDS_USERNAME=$RDS_USERNAME RDS_PASSWORD=$RDS_PASSWORD
+            
 
       - run:
           name: 'Install Backend'
@@ -65,3 +60,7 @@ workflows:
   storefront:
     jobs:
       - build
+      filter:
+        branches:
+          only:
+            - main
