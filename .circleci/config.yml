@@ -35,12 +35,12 @@ jobs:
           name: 'Deploy frontend'
           command: cd frontend && yarn deploy
 
-     # setup Elastic Beanstalk
+      # setup Elastic Beanstalk
       - run:
           name: 'Setup Elastic Beanstalk environment variables'
           command: |
             eb setenv AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY BCRYPT_PASSWORD=$BCRYPT_PASSWORD TOKEN_SECRET=$TOKEN_SECRET SALT_ROUNDS=$SALT_ROUNDS ENV=$ENV RDS_HOSTNAME=$RDS_HOSTNAME RDS_PORT=$RDS_PORT RDS_DB_NAME=$RDS_DB_NAME RDS_USERNAME=$RDS_USERNAME RDS_PASSWORD=$RDS_PASSWORD
-            
+
 
       - run:
           name: 'Install Backend'
@@ -59,8 +59,9 @@ jobs:
 workflows:
   storefront:
     jobs:
-      - build
-      filter:
-        branches:
-          only:
-            - main
+      - build:
+          filters:
+            branches:
+              only:
+                - main
+
