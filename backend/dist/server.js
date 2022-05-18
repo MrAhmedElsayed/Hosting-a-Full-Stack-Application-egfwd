@@ -29,7 +29,7 @@ var aws_sdk_1 = __importDefault(require("aws-sdk"));
 var app = (0, express_1.default)();
 var address = '0.0.0.0:3000';
 var corsOptions = {
-    origin: 'http://127.0.0.1:8080',
+    origin: 'http://storefront-front.s3-website-us-east-1.amazonaws.com',
     optionsSuccessStatus: 200,
 };
 app.use((0, cors_1.default)(corsOptions));
@@ -38,8 +38,8 @@ app.use((0, morgan_1.default)('dev'));
 // use aws-sdk in express app
 aws_sdk_1.default.config.update({
     region: 'us-east-1',
-    accessKeyId: 'AKIAXALHREMKAARJ6HWT',
-    secretAccessKey: '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',
+    accessKeyId: 'AKIAXALHREMKOUMMQCEZ',
+    secretAccessKey: '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',
 });
 app.get('/', function (req, res) {
     res.send('Hello World!');

@@ -26,7 +26,7 @@ const app: express.Application = express()
 const address = '0.0.0.0:3000'
 
 const corsOptions = {
-  origin: 'http://127.0.0.1:8080',
+  origin: 'http://storefront-front.s3-website-us-east-1.amazonaws.com',
   optionsSuccessStatus: 200,
 }
 
@@ -38,8 +38,8 @@ app.use(morgan('dev'))
 // use aws-sdk in express app
 AWS.config.update({
   region: 'us-east-1',
-  accessKeyId: 'AKIAXALHREMKAARJ6HWT',
-  secretAccessKey: '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',
+  accessKeyId: 'AKIAXALHREMKOUMMQCEZ',
+  secretAccessKey: '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',
 })
 
 app.get('/', function (req: Request, res: Response) {

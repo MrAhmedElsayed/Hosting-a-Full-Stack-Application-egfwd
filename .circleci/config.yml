@@ -5,6 +5,10 @@ orbs:
   eb: circleci/aws-elastic-beanstalk@1.0.0
 jobs:
   build:
+    filters:
+      branches:
+        only:
+          - main
     docker:
       - image: 'cimg/base:stable'
         auth:
@@ -21,6 +25,7 @@ jobs:
       - run: node --version
       - run: yarn --version
       - run: aws --version
+      - run: eb --version
       - run:
           name: 'Install Frontend'
           command: cd frontend && yarn install
@@ -33,6 +38,14 @@ jobs:
       - run:
           name: 'Deploy frontend'
           command: cd frontend && yarn deploy
+
+     # setup Elastic Beanstalk
+      - run:
+          name: 'Setup Elastic Beanstalk'
+          command: |
+            eb init --platform node.js --region us-east-1 --profile cli-user
+            eb create backend-env --platform node.js --region us-east-1 --profile cli-user
+            eb deploy --platform node.js --region us-east-1 --version-label '1.0.0' --profile cli-user
 
       - run:
           name: 'Install Backend'
