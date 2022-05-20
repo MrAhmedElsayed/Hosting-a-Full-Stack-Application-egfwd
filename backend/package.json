@@ -5,8 +5,9 @@
   "repository": "git@github.com:MrAhmedElsayed/storefront-egfwd.git",
   "author": "MrAhmedElsayed <ahmedsayed551991@gmail.com>",
   "scripts": {
+    "start": "node dist/server.js",
+    "start:ts": "npx ts-node src/server.ts",
     "dev": "nodemon --exec npx ts-node ./src/server.ts",
-    "start": "npx ts-node src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "migrate": "db-migrate --env dev up && db-migrate up",
     "build": "tsc",
