@@ -7,9 +7,6 @@ jobs:
   build:
     docker:
       - image: 'cimg/base:stable'
-        auth:
-          username: mrahmedelsayed
-          password: Ahmed01273290218
     steps:
       - checkout
       - node/install:
