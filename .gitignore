@@ -107,8 +107,3 @@ typings/
 
 # front-store backend .env file
 ./backend/.env
-
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
