@@ -1,0 +1,27 @@
+branch-defaults:
+  default:
+    environment: Storefrontapp-env-1
+    group_suffix: null
+  main:
+    environment: Storefrontapp-env-1
+    group_suffix: null
+deploy:
+  artifact: www/www.zip
+environment-defaults:
+  Storefrontapp-env-1:
+    branch: null
+    repository: null
+global:
+  application_name: storefront-app
+  branch: null
+  default_ec2_keyname: null
+  default_platform: Node.js 14 running on 64bit Amazon Linux 2
+  default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: cli-user
+  repository: null
+  sc: git
+  workspace_type: Application
