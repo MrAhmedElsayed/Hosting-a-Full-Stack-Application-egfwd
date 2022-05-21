@@ -41,7 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserStore = void 0;
 var database_1 = __importDefault(require("../database"));
-var bcrypt_1 = __importDefault(require("bcrypt"));
+var bcryptjs_1 = __importDefault(require("bcryptjs"));
 var pepper = process.env.BCRYPT_PASSWORD;
 var saltRounds = process.env.SALT_ROUNDS || '10';
 var UserStore = /** @class */ (function () {
@@ -106,7 +106,7 @@ var UserStore = /** @class */ (function () {
                     case 1:
                         connection = _a.sent();
                         sql = 'INSERT INTO users (username, first_name, last_name, password) VALUES ($1, $2, $3, $4) RETURNING *';
-                        hashedPassword = bcrypt_1.default.hashSync(data.password + pepper, parseInt(saltRounds));
+                        hashedPassword = bcryptjs_1.default.hashSync(data.password + pepper, parseInt(saltRounds));
                         return [4 /*yield*/, connection.query(sql, [
                                 data.username,
                                 data.first_name,
@@ -142,7 +142,7 @@ var UserStore = /** @class */ (function () {
                         conn.release();
                         user = result.rows[0];
                         if (user) {
-                            isValid = bcrypt_1.default.compareSync(password + pepper, user.password);
+                            isValid = bcryptjs_1.default.compareSync(password + pepper, user.password);
                             if (isValid) {
                                 return [2 /*return*/, user];
                             }
