@@ -27,7 +27,7 @@ var aws_sdk_1 = __importDefault(require("aws-sdk"));
 //   console.error('Unable to connect to the database:', error);
 // }
 var app = (0, express_1.default)();
-var address = '0.0.0.0:3000';
+var address = '0.0.0.0:8080';
 var corsOptions = {
     origin: 'http://storefront-front.s3-website-us-east-1.amazonaws.com',
     optionsSuccessStatus: 200,
@@ -48,7 +48,7 @@ app.get('/', function (req, res) {
 (0, product_1.default)(app);
 (0, user_1.default)(app);
 (0, homePage_1.default)(app);
-app.listen(3000, function () {
+app.listen(8080, function () {
     console.log("starting app on: ".concat(address));
 });
 exports.default = app;

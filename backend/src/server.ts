@@ -23,7 +23,7 @@ import AWS from 'aws-sdk'
 // }
 
 const app: express.Application = express()
-const address = '0.0.0.0:3000'
+const address = '0.0.0.0:8080'
 
 const corsOptions = {
   origin: 'http://storefront-front.s3-website-us-east-1.amazonaws.com',
@@ -51,7 +51,7 @@ productRoutes(app)
 userRoutes(app)
 homeRoute(app)
 
-app.listen(3000, function () {
+app.listen(8080, function () {
   console.log(`starting app on: ${address}`)
 })
 
