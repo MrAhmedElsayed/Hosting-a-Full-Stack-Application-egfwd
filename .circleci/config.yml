@@ -20,36 +20,29 @@ jobs:
       - run: eb --version
       - run:
           name: 'Install Frontend'
-          command: cd frontend && npm i
+          command: npm run frontend:install
       - run:
           name: 'Build Frontend'
-          command: cd frontend && npm run build
+          command: npm run frontend:build
       - run:
           name: 'Test Frontend'
-          command: cd frontend && npm run test
+          command: npm run frontend:test
       - run:
           name: 'Deploy frontend'
-          command: cd frontend && npm run deploy
-
-      # setup Elastic Beanstalk
-      - run:
-          name: 'Setup Elastic Beanstalk environment variables'
-          command: |
-            echo "hello"
-
+          command: npm run frontend:deploy
 
       - run:
           name: 'Install Backend'
-          command: cd backend && npm i
+          command: npm run backend:install
       - run:
           name: 'Build Backend'
-          command: cd backend && npm run build
+          command: npm run backend:build
       - run:
           name: 'Test Backend'
-          command: cd backend && npm run test
+          command: npm run backend:test
       - run:
           name: 'Deploy backend'
-          command: cd backend && npm run deploy
+          command: npm run backend:deploy
 
 
 workflows:
