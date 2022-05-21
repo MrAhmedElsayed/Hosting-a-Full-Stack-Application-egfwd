@@ -12,8 +12,5 @@
     "backend:build": "cd backend && yarn build",
     "frontend:test": "cd frontend && yarn test",
     "backend:test": "cd backend && yarn test"
-  },
-  "dependencies": {
-    "morgan": "^1.10.0"
   }
 }
