@@ -11,7 +11,7 @@
     "start": "node server.js",
     "clean": "rm -rf www && mkdir www",
     "build:ts": "npm run clean && npm run build:prod",
-    "build": "npm run clean && tsc && cp -rf migrations/ www/migrations && cp -rf public/ www/public && cp database.json .env Procfile package.json www && cd www && zip -r ../www.zip *",
+    "build": "npm run clean && tsc && cp -rf migrations/ www/migrations && cp -rf public/ www/public && cp .npmrc database.json .env Procfile package.json www && cd www && zip -r ../www.zip *",
     "start:ts": "npx ts-node src/server.ts",
     "dev": "nodemon --exec npx ts-node ./src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
