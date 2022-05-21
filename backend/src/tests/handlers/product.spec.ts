@@ -61,8 +61,9 @@ describe('The products End-Points', () => {
   })
 
   it('should get a product', async () => {
-    const res = await request.get('/products/1')
-        .set('Authorization', `Bearer ${token}`)
+    const res = await request
+      .get('/products/1')
+      .set('Authorization', `Bearer ${token}`)
     expect(res.status).toBe(200)
     expect(res.body).toEqual({ id: 1, name: 'test product', price: 100 })
   })

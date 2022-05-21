@@ -133,7 +133,8 @@ describe('The products End-Points', function () {
         var res;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get('/products/1')
+                case 0: return [4 /*yield*/, request
+                        .get('/products/1')
                         .set('Authorization', "Bearer ".concat(token))];
                 case 1:
                     res = _a.sent();
