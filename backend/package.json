@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "16"
+    "node": "14"
   },
   "name": "storefront-egfwd",
   "version": "0.0.1",
@@ -8,7 +8,7 @@
   "repository": "git@github.com:MrAhmedElsayed/storefront-egfwd.git",
   "author": "MrAhmedElsayed <ahmedsayed551991@gmail.com>",
   "scripts": {
-    "start": "node www/server.js",
+    "start": "node server.js",
     "clean": "rm -rf www && mkdir www",
     "build:ts": "npm run clean && npm run build:prod",
     "build": "npm run clean && tsc && cp -rf migrations/ www/migrations && cp -rf public/ www/public && cp database.json .env Procfile package.json www",
