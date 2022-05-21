@@ -152,7 +152,7 @@ import {
   mdiClose,
 } from "@mdi/js";
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "http://storefront-env.eba-mm2w3dke.us-east-1.elasticbeanstalk.com";
 import { mapMutations } from "vuex";
 import { mapGetters } from "vuex";
 export default {
@@ -221,7 +221,7 @@ export default {
           })
           .catch((err) => {
             this.snackbar = true;
-            this.snackbarText = err.response.data.message;
+            this.snackbarText = "error login server";
             console.log(err);
             this.login_loading = false;
           });

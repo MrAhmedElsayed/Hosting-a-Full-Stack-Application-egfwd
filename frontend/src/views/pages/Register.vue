@@ -185,7 +185,7 @@ import {
   mdiClose,
 } from "@mdi/js";
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "http://storefront-env.eba-mm2w3dke.us-east-1.elasticbeanstalk.com";
 
 export default {
   data() {
