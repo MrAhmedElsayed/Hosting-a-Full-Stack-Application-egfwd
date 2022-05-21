@@ -8,16 +8,18 @@
   "repository": "git@github.com:MrAhmedElsayed/storefront-egfwd.git",
   "author": "MrAhmedElsayed <ahmedsayed551991@gmail.com>",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "node www/server.js",
+    "clean": "rm -rf www && mkdir www",
+    "build:ts": "npm run clean && npm run build:prod",
+    "build": "npm run clean && tsc && cp -rf migrations/ www/migrations && cp -rf node_modules www/node_modules && cp -rf public/ www/public && cp database.json .env Procfile package.json www",
     "start:ts": "npx ts-node src/server.ts",
     "dev": "nodemon --exec npx ts-node ./src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "migrate": "db-migrate --env dev up && db-migrate up",
-    "build": "tsc",
     "test": "echo \"Tests Success\"",
     "format": "prettier --config .prettierrc \"src/**/*.{js,html,ts}\" --write",
-    "lint": "yarn format && eslint --ext \"src/**/*.{js,ts}\"",
-    "lint:fix": "yarn lint --fix",
+    "lint": "npm run format && eslint --ext \"src/**/*.{js,ts}\"",
+    "lint:fix": "npm run lint --fix",
     "deploy": "chmod +x bin/deploy.sh && bin/deploy.sh"
   },
   "dependencies": {
