@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "engines": {
-    "node": "16"
+    "node": "14"
   },
   "scripts": {
     "frontend:install": "cd frontend && yarn",
@@ -12,5 +12,8 @@
     "backend:build": "cd backend && yarn build",
     "frontend:test": "cd frontend && yarn test",
     "backend:test": "cd backend && yarn test"
+  },
+  "dependencies": {
+    "morgan": "^1.10.0"
   }
 }

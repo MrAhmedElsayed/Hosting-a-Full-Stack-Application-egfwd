@@ -10,47 +10,47 @@ jobs:
     steps:
       - checkout
       - node/install:
-          install-yarn: true
-          node-version: '16.13'
+          install-yarn: false
+          node-version: '14'
       - aws-cli/setup:
           profile-name: cli-user
       - eb/setup
       - run: node --version
-      - run: yarn --version
       - run: aws --version
       - run: eb --version
       - run:
           name: 'Install Frontend'
-          command: cd frontend && yarn install
+          command: cd frontend && npm i
       - run:
           name: 'Build Frontend'
-          command: cd frontend && yarn build
+          command: cd frontend && npm run build
       - run:
           name: 'Test Frontend'
-          command: cd frontend && yarn test
+          command: cd frontend && npm run test
       - run:
           name: 'Deploy frontend'
-          command: cd frontend && yarn deploy
+          command: cd frontend && npm run deploy
 
       # setup Elastic Beanstalk
       - run:
           name: 'Setup Elastic Beanstalk environment variables'
           command: |
-            eb setenv AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY BCRYPT_PASSWORD=$BCRYPT_PASSWORD TOKEN_SECRET=$TOKEN_SECRET SALT_ROUNDS=$SALT_ROUNDS ENV=$ENV RDS_HOSTNAME=$RDS_HOSTNAME RDS_PORT=$RDS_PORT RDS_DB_NAME=$RDS_DB_NAME RDS_USERNAME=$RDS_USERNAME RDS_PASSWORD=$RDS_PASSWORD
+            eb use Storefront-env --profile cli-user
+            eb setenv AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY BCRYPT_PASSWORD=$BCRYPT_PASSWORD TOKEN_SECRET=$TOKEN_SECRET SALT_ROUNDS=$SALT_ROUNDS ENV=$ENV RDS_HOSTNAME=$RDS_HOSTNAME RDS_PORT=$RDS_PORT RDS_DB_NAME=$RDS_DB_NAME RDS_USERNAME=$RDS_USERNAME RDS_PASSWORD=$RDS_PASSWORD --profile cli-user
 
 
       - run:
           name: 'Install Backend'
-          command: cd backend && yarn install
+          command: cd backend && npm i
       - run:
           name: 'Build Backend'
-          command: cd backend && yarn build
+          command: cd backend && npm run build
       - run:
           name: 'Test Backend'
-          command: cd backend && yarn test
+          command: cd backend && npm run test
       - run:
           name: 'Deploy backend'
-          command: cd backend && yarn deploy
+          command: cd backend && npm run deploy
 
 
 workflows:
