@@ -7,6 +7,11 @@ user interface, and the [Back-End](https://github.com/MrAhmedElsayed/Hosting-a-F
 analysis of user requests.
 You can enter the website demo through the [link](http://storefront-front.s3-website-us-east-1.amazonaws.com/) and log in with the **username** ahmed123 and the **password** 123
 
+# Docs
+- [Infrastructure description](https://github.com/MrAhmedElsayed/Hosting-a-Full-Stack-Application-egfwd/blob/main/docs/Infrastructure_description.md%29)
+- [App dependencies](https://github.com/MrAhmedElsayed/Hosting-a-Full-Stack-Application-egfwd/blob/main/docs/App_dependencies.md)
+- [Pipeline process](https://github.com/MrAhmedElsayed/Hosting-a-Full-Stack-Application-egfwd/blob/main/docs/Pipeline_process.md)
+
 
 
 # Screenshots
