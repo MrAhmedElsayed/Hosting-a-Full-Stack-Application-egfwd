@@ -33,10 +33,14 @@ You must see this interface:
 ## Documenting Deployment Process
 
  -   Infrastructure description
+
+     ![enter image description here](https://raw.githubusercontent.com/MrAhmedElsayed/Hosting-a-Full-Stack-Application-egfwd/main/docs_screenshots/diagram/diagram.png)
+
  -   App dependencies
      - parent *package.json*
 	 
-	 {
+	 ```json
+     {
 		"name": "my-app",
 		"version": "0.0.1",
 		"private": true,
@@ -54,6 +58,7 @@ You must see this interface:
 			"backend:deploy": "cd backend && npm run deploy"
 			}
 		}
+        ```
 	 
  -   Pipeline process
 	 - fig.1
@@ -64,4 +69,4 @@ You must see this interface:
 	 ![enter image description here](https://raw.githubusercontent.com/MrAhmedElsayed/Hosting-a-Full-Stack-Application-egfwd/main/docs_screenshots/pipline_status/pipeline_status_3.png)
 	 - fig.4
 	 ![enter image description here](https://raw.githubusercontent.com/MrAhmedElsayed/Hosting-a-Full-Stack-Application-egfwd/main/docs_screenshots/pipline_status/pipeline_status_4.png)
-```
+
